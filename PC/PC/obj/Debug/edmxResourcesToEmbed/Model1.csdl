@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Audit">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="idUsers" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Audit_Users" FromRole="Audit" ToRole="Users" />
+    <NavigationProperty Name="oborud" Relationship="Self.FK_oborud_Audit" FromRole="Audit" ToRole="oborud" />
+  </EntityType>
+  <EntityType Name="dolz">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_dolz" FromRole="dolz" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="oborud">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="zavod_numer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="date_post" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IdAudit" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Audit" Relationship="Self.FK_oborud_Audit" FromRole="oborud" ToRole="Audit" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Iddolz" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Adrec" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Audit" Relationship="Self.FK_Audit_Users" FromRole="Users" ToRole="Audit" />
+    <NavigationProperty Name="dolz" Relationship="Self.FK_Users_dolz" FromRole="Users" ToRole="dolz" />
+  </EntityType>
+  <Association Name="FK_Audit_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Audit" Type="Self.Audit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Audit">
+        <PropertyRef Name="idUsers" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_oborud_Audit">
+    <End Role="Audit" Type="Self.Audit" Multiplicity="1" />
+    <End Role="oborud" Type="Self.oborud" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Audit">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="oborud">
+        <PropertyRef Name="IdAudit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_dolz">
+    <End Role="dolz" Type="Self.dolz" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dolz">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Iddolz" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Audit" EntityType="Self.Audit" />
+    <EntitySet Name="dolz" EntityType="Self.dolz" />
+    <EntitySet Name="oborud" EntityType="Self.oborud" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Audit_Users" Association="Self.FK_Audit_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Audit" EntitySet="Audit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_oborud_Audit" Association="Self.FK_oborud_Audit">
+      <End Role="Audit" EntitySet="Audit" />
+      <End Role="oborud" EntitySet="oborud" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_dolz" Association="Self.FK_Users_dolz">
+      <End Role="dolz" EntitySet="dolz" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,77 @@
+﻿<Page x:Class="PC.Pages.AddUsers"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PC.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddUsers" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Button x:Name="bage" Content="Нахад" Click="bage_Click"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Label Content="Фамилия"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Label Content="Имя"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0">
+            <Label Content="Отчество"/>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0">
+            <Label Content="Должность"/>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="0">
+            <Label Content="Телефон"/>
+        </Grid>
+        <Grid Grid.Row="6" Grid.Column="0">
+            <Label Content="Адрес" />
+        </Grid>
+
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBox x:Name="FirstName"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <TextBox x:Name="Name"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3">
+            <TextBox x:Name="LastName"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="4" Margin="10,0,24,0">
+            <ComboBox Name="Cbdolz" VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                </ComboBox>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="5">
+            <TextBox x:Name="Phone" />
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="6">
+            <TextBox x:Name="adres"/>
+        </Grid>
+        <Grid Grid.Row="7" Grid.ColumnSpan="2">
+            <Button x:Name="add" Content="Продолжить" Click="add_Click"/>
+        </Grid>
+    </Grid>
+</Page>
